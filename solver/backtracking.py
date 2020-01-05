@@ -1,4 +1,5 @@
-# solver.py
+import pygame
+import time
 
 def solve(bo):
     find = find_empty(bo)
@@ -64,3 +65,24 @@ def find_empty(bo):
                 return (i, j)  # row, col
 
     return None
+
+def back_tracking_auto_play(board, win, play_time, strikes, button_list):
+    for i in range(9):
+        for j in range(9):
+            time.sleep(0.1)
+            board.select(i, j)
+            print(i , j)
+            if board.cubes[i][j].value == 0:
+                for rs in range(9):
+                    board.sketch(rs + 1)
+                    if board.cubes[i][j].temp != 0:
+                        if board.place(board.cubes[i][j].temp):
+                            if board.is_finished():
+                                win.redraw_window(play_time, strikes, button_list)
+                                pygame.display.update()
+                                print("Game over")
+                                while True:
+                                    True
+                                    # run = False
+            win.redraw_window(play_time, strikes, button_list)
+            pygame.display.update()
