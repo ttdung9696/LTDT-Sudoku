@@ -82,7 +82,7 @@ def back_tracking_auto_play(board, win, play_time, strikes, button_list):
                                 pygame.display.update()
                                 print("Game over")
                                 while True:
-                                    a = 1 + 1
+                                    True
                                     # run = False
             win.redraw_window(play_time, strikes, button_list)
             pygame.display.update()
