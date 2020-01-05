@@ -95,6 +95,8 @@ class Grid:
     def is_finished(self):
         for i in range(self.rows):
             for j in range(self.cols):
+                if(i == 8 and j == 7):
+                    print('here')
                 if self.cubes[i][j].value == 0:
                     return False
         return True
@@ -158,6 +160,26 @@ def format_time(secs):
     mat = " " + str(minute) + ":" + str(sec)
     return mat
 
+def auto_play(board, win, play_time, strikes):
+    for i in range(9):
+        for j in range(9):
+            time.sleep(0.1)
+            board.select(i, j)
+            print(i , j)
+            if board.cubes[i][j].value == 0:
+                for rs in range(9):
+                    board.sketch(rs + 1)
+                    if board.cubes[i][j].temp != 0:
+                        if board.place(board.cubes[i][j].temp):
+                            if board.is_finished():
+                                redraw_window(win, board, play_time, strikes)
+                                pygame.display.update()
+                                print("Game over")
+                                while True:
+                                    a = 1 + 1
+                                    # run = False
+            redraw_window(win, board, play_time, strikes)
+            pygame.display.update()
 
 def main():
     win = pygame.display.set_mode((540,600))
@@ -168,59 +190,58 @@ def main():
     start = time.time()
     strikes = 0
     while run:
-
         play_time = round(time.time() - start)
+        auto_play(board, win, play_time, strikes)
+        # for event in pygame.event.get():
+        #     if event.type == pygame.QUIT:
+        #         run = False
+        #     if event.type == pygame.KEYDOWN:
+        #         if event.key == pygame.K_1:
+        #             key = 1
+        #         if event.key == pygame.K_2:
+        #             key = 2
+        #         if event.key == pygame.K_3:
+        #             key = 3
+        #         if event.key == pygame.K_4:
+        #             key = 4
+        #         if event.key == pygame.K_5:
+        #             key = 5
+        #         if event.key == pygame.K_6:
+        #             key = 6
+        #         if event.key == pygame.K_7:
+        #             key = 7
+        #         if event.key == pygame.K_8:
+        #             key = 8
+        #         if event.key == pygame.K_9:
+        #             key = 9
+        #         if event.key == pygame.K_DELETE:
+        #             board.clear()
+        #             key = None
+        #         if event.key == pygame.K_RETURN:
+        #             i, j = board.selected
+        #             if board.cubes[i][j].temp != 0:
+        #                 if board.place(board.cubes[i][j].temp):
+        #                     print("Success")
+        #                 else:
+        #                     print("Wrong")
+        #                     strikes += 1
+        #                 key = None
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_1:
-                    key = 1
-                if event.key == pygame.K_2:
-                    key = 2
-                if event.key == pygame.K_3:
-                    key = 3
-                if event.key == pygame.K_4:
-                    key = 4
-                if event.key == pygame.K_5:
-                    key = 5
-                if event.key == pygame.K_6:
-                    key = 6
-                if event.key == pygame.K_7:
-                    key = 7
-                if event.key == pygame.K_8:
-                    key = 8
-                if event.key == pygame.K_9:
-                    key = 9
-                if event.key == pygame.K_DELETE:
-                    board.clear()
-                    key = None
-                if event.key == pygame.K_RETURN:
-                    i, j = board.selected
-                    if board.cubes[i][j].temp != 0:
-                        if board.place(board.cubes[i][j].temp):
-                            print("Success")
-                        else:
-                            print("Wrong")
-                            strikes += 1
-                        key = None
+        #                 if board.is_finished():
+        #                     print("Game over")
+        #                     run = False
+        #     if event.type == pygame.MOUSEBUTTONDOWN:
+        #         pos = pygame.mouse.get_pos()
+        #         clicked = board.click(pos)
+        #         if clicked:
+        #             board.select(clicked[0], clicked[1])
+        #             key = None
 
-                        if board.is_finished():
-                            print("Game over")
-                            run = False
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                pos = pygame.mouse.get_pos()
-                clicked = board.click(pos)
-                if clicked:
-                    board.select(clicked[0], clicked[1])
-                    key = None
-
-        if board.selected and key != None:
-            board.sketch(key)
-
-        redraw_window(win, board, play_time, strikes)
-        pygame.display.update()
+        # if board.selected and key != None:
+        #     board.sketch(key)
+        
+        # redraw_window(win, board, play_time, strikes)
+        # pygame.display.update()
 
 
 main()
