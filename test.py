@@ -11,11 +11,8 @@ def main():
         [0, 4, 9, 2, 0, 6, 0, 0, 7]
     ]
     min_x = 0
-<<<<<<< HEAD
     group = []
     sudoku_group = []
-=======
->>>>>>> 9dda907c54dedbef9fd39404b1cdf17d0ddb6625
     current_x = 0
     y = 0
     while(True):
