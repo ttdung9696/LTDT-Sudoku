@@ -2,6 +2,7 @@
 import pygame
 import time
 from solver.backtracking import solve, valid, back_tracking_auto_play
+from graph_coloring.graph import Graph
 from component.grid import Grid
 from component.cube import Cube
 from component.button import Button
@@ -9,17 +10,31 @@ from component.screen import Screen
 pygame.font.init()
 
 def main():
-    board = Grid(9, 9, 500, 500)
-    win = Screen(540, 600, board)
-    button1 = Button(win, 0, 502, 100, 50, 'Back Tracking', back_tracking_auto_play)
+    sudoku = [
+        [7, 8, 0, 4, 0, 0, 1, 2, 0],
+        [6, 0, 0, 0, 7, 5, 0, 0, 9],
+        [0, 0, 0, 6, 0, 1, 0, 7, 8],
+        [0, 0, 7, 0, 4, 0, 2, 6, 0],
+        [0, 0, 1, 0, 5, 0, 9, 3, 0],
+        [9, 0, 4, 0, 6, 0, 0, 0, 5],
+        [0, 7, 0, 3, 0, 0, 0, 1, 2],
+        [1, 2, 0, 0, 0, 7, 4, 0, 0],
+        [0, 4, 9, 2, 0, 6, 0, 0, 7]
+    ]
+    board = Grid(9, 9, 300, 300, sudoku)
+    graph = Graph(sudoku)
+    win = Screen(1300, 700, board, graph)
+    button1 = Button(win, 0, 302, 100, 50, 'Back Tracking', back_tracking_auto_play)
     button_list = [button1]
     key = None
     run = True
     start = time.time()
     strikes = 0
+    # play_time = round(time.time() - start)
+    # win.redraw_window(play_time, strikes, button_list)
+    # pygame.display.update()
     while run:
         play_time = round(time.time() - start)
-        # auto_play(board, win, play_time, strikes)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False

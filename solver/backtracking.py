@@ -34,7 +34,7 @@ def valid(bo, num, pos):
     # Check box
     box_x = pos[1] // 3
     box_y = pos[0] // 3
-
+    print('checkbox', box_x, box_y)
     for i in range(box_y*3, box_y*3 + 3):
         for j in range(box_x * 3, box_x*3 + 3):
             if bo[i][j] == num and (i,j) != pos:
@@ -71,7 +71,6 @@ def back_tracking_auto_play(board, win, play_time, strikes, button_list):
         for j in range(9):
             time.sleep(0.1)
             board.select(i, j)
-            print(i , j)
             if board.cubes[i][j].value == 0:
                 for rs in range(9):
                     board.sketch(rs + 1)
