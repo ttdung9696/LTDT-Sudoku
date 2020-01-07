@@ -2,6 +2,7 @@
 import pygame
 import time
 from solver.backtracking import solve, valid, back_tracking_auto_play
+from solver.graphColoring import graph_coloring_auto_play
 from graph_coloring.graph import Graph
 from component.grid import Grid
 from component.cube import Cube
@@ -25,14 +26,15 @@ def main():
     graph = Graph(sudoku)
     win = Screen(1300, 700, board, graph)
     button1 = Button(win, 0, 302, 100, 50, 'Back Tracking', back_tracking_auto_play)
-    button_list = [button1]
+    button2 = Button(win, 110, 302, 100, 50, 'Graph Coloring', graph_coloring_auto_play)
+    button_list = [button1, button2]
     key = None
     run = True
     start = time.time()
     strikes = 0
-    # play_time = round(time.time() - start)
-    # win.redraw_window(play_time, strikes, button_list)
-    # pygame.display.update()
+    play_time = round(time.time() - start)
+    win.redraw_window(play_time, strikes, button_list, True)
+    pygame.display.update()
     while run:
         play_time = round(time.time() - start)
         for event in pygame.event.get():
@@ -86,8 +88,8 @@ def main():
         if board.selected and key != None:
             board.sketch(key)
         
-        win.redraw_window(play_time, strikes, button_list)
-        pygame.display.update()
+        # win.redraw_window(play_time, strikes, button_list)
+        # pygame.display.update()
 
 
 main()

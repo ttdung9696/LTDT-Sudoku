@@ -82,8 +82,6 @@ class Grid:
     def is_finished(self):
         for i in range(self.rows):
             for j in range(self.cols):
-                if(i == 8 and j == 7):
-                    print('here')
                 if self.cubes[i][j].value == 0:
                     return False
         return True

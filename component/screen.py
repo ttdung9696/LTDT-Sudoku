@@ -15,7 +15,7 @@ class Screen:
         return mat
 
 
-    def redraw_window(self, time, strikes, button_list):
+    def redraw_window(self, time, strikes, button_list, disable_graph = False):
         self.win.fill((255,255,255))
         for button in button_list:
             button.draw_button(self.win)
@@ -26,5 +26,6 @@ class Screen:
         self.win.blit(text, (20, 560))
         # Draw grid and board
         self.board.draw(self.win)
-        # self.graph.draw_graph(self.win)
+        if disable_graph == False:
+            self.graph.draw_graph(self.win)
 
