@@ -2,10 +2,11 @@
 import pygame
 
 class Screen:
-    def __init__(self, x, y, board):
+    def __init__(self, x, y, board, graph):
         self.win = pygame.display.set_mode((x, y))
         pygame.display.set_caption("Sudoku")
         self.board = board
+        self.graph = graph
 
     def format_time(self ,secs):
         sec = secs%60
@@ -20,11 +21,10 @@ class Screen:
             button.draw_button(self.win)
         # Draw time
         fnt = pygame.font.SysFont("comicsans", 40)
-        text = fnt.render("Time: " + self.format_time(time), 1, (0,0,0))
-        self.win.blit(text, (540 - 160, 560))
         # Draw Strikes
         text = fnt.render("X " * strikes, 1, (255, 0, 0))
         self.win.blit(text, (20, 560))
         # Draw grid and board
         self.board.draw(self.win)
+        # self.graph.draw_graph(self.win)
 
