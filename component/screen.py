@@ -15,7 +15,7 @@ class Screen:
         return mat
 
 
-    def redraw_window(self, time, strikes, button_list, disable_graph = False):
+    def redraw_window(self, time, strikes, button_list, disable_graph):
         self.win.fill((255,255,255))
         for button in button_list:
             button.draw_button(self.win)

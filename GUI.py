@@ -10,6 +10,7 @@ from component.button import Button
 from component.screen import Screen
 pygame.font.init()
 
+
 def main():
     sudoku = [
         [7, 8, 0, 4, 0, 0, 1, 2, 0],
@@ -25,15 +26,18 @@ def main():
     board = Grid(9, 9, 300, 300, sudoku)
     graph = Graph(sudoku)
     win = Screen(1300, 700, board, graph)
-    button1 = Button(win, 0, 302, 100, 50, 'Back Tracking', back_tracking_auto_play)
-    button2 = Button(win, 110, 302, 100, 50, 'Graph Coloring', graph_coloring_auto_play)
+    button1 = Button(win, 0, 302, 100, 50, 'Back Tracking',
+                     back_tracking_auto_play)
+    button2 = Button(win, 110, 302, 100, 50, 'Graph Coloring',
+                     graph_coloring_auto_play)
     button_list = [button1, button2]
     key = None
     run = True
+    disable_graph = True
     start = time.time()
     strikes = 0
     play_time = round(time.time() - start)
-    win.redraw_window(play_time, strikes, button_list, True)
+    win.redraw_window(play_time, strikes, button_list, disable_graph)
     pygame.display.update()
     while run:
         play_time = round(time.time() - start)
@@ -80,14 +84,15 @@ def main():
                 if event.button == 1:
                     for button in button_list:
                         if button.rect.collidepoint(event.pos):
-                            button.callback(board, win, play_time, strikes, button_list)
+                            button.callback(
+                                board, win, play_time, strikes, button_list, graph)
                 if clicked:
                     board.select(clicked[0], clicked[1])
                     key = None
 
         if board.selected and key != None:
             board.sketch(key)
-        
+
         # win.redraw_window(play_time, strikes, button_list)
         # pygame.display.update()
 
