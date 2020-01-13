@@ -45,12 +45,12 @@
 # # print(list_same_rows())
 # print(list_same_cols())
 
-def list_same_row(self, list_coordinator):
+def list_same_row(self, list_coordinators):
     list_same_row = []
     group = []
     for y in range(9):
         for x in range(9):
-            for coordinator in list_coordinator:
+            for coordinator in list_coordinators:
                 if coordinator.x == x and coordinator.y == y and coordinator.value == 0:
                     group.append(coordinator)
         list_same_row.append(group)
